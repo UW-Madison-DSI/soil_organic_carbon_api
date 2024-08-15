@@ -44,8 +44,8 @@ This API provides predictions for soil organic carbon (SOC) content and stock ba
     '6':'Rangeland or Pasture',
     '7':'Non-Processing Area Mask'
 }
-
-
+```
+```json
 {
    '1':'Trees',
    '2':'Tall Shrubs & Trees Mix (SEAK Only)',
