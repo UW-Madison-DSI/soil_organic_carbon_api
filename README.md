@@ -33,6 +33,38 @@ This API provides predictions for soil organic carbon (SOC) content and stock ba
 * land_use (int): Land use code (refer to the land use classification system used).
 * land_cover (int): Land cover code (refer to the land cover classification system used).
 
+## LU and LC code mapings
+```json
+{
+    '1':'Agriculture',
+    '2':'Developed',
+    '3':'Forest',
+    '4':'Non-Forest Wetland',
+    '5':'Other',
+    '6':'Rangeland or Pasture',
+    '7':'Non-Processing Area Mask'
+}
+
+
+{
+   '1':'Trees',
+   '2':'Tall Shrubs & Trees Mix (SEAK Only)',
+   '3':'Shrubs & Trees Mix',
+   '4':'Grass/Forb/Herb & Trees Mix',
+   '5':'Barren & Trees Mix',
+   '6':'Tall Shrubs (SEAK Only)',
+   '7':'Shrubs',
+   '8':'Grass/Forb/Herb & Shrubs Mix',
+   '9':'Barren & Shrubs Mix',
+   '10':'Grass/Forb/Herb',
+   '11':'Barren & Grass/Forb/Herb Mix',
+   '12':'Barren or Impervious',
+   '13':'Snow or Ice',
+   '14':'Water',
+   '15':'Non-Processing Area Mask'
+}
+```
+
 **Output**
 
 * soil_organic_carbon (float): Predicted SOC content
