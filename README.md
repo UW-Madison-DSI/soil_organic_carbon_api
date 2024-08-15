@@ -45,33 +45,4 @@ This API provides predictions for soil organic carbon (SOC) content and stock ba
 3. Send a POST request to the /v1/prediction endpoint with input parameters in JSON format.
 
 **Example Request**
-
-```json
-{
-  "depth_cm": 30,
-  "total_precipitation": 1000,
-  "min_temperature": -5,
-  "mean_temperature": 12,
-  "max_temperature": 25,
-  "dem": 200,
-  "slope": 8,
-  "aspect": 135,
-  "hillshade": 120,
-  "bd_mean": 1.3,
-  "clay_mean": 25,
-  "om_mean": 3,
-  "ph_mean": 6.2,
-  "sand_mean": 45,
-  "silt_mean": 30,
-  "land_use": 2,
-  "land_cover": 5
-}
-```
-**Example Result**
-
-```json
-{
-  "soil_organic_carbon": 22.5,
-  "soil_organic_carbon_stock": 67.5
-}
-```
+Check Code-Notebooks/example_api_call-2.ipynb to get an example of the API request.
