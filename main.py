@@ -10,18 +10,16 @@ from pandas import DataFrame
 from typing import List
 import xgboost as xgb
 import logging
+import joblib
 import pandas as pd
 import sklearn # Ensure scikit-learn is installed
-
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 
 class PredictionRequest(BaseModel):
     depth_cm: float
     total_precipitation: float
-    min_temperature: float
     mean_temperature: float
-    max_temperature: float
     dem: float
     slope: float
     aspect: float
@@ -31,7 +29,6 @@ class PredictionRequest(BaseModel):
     om_mean: float
     ph_mean: float
     sand_mean: float
-    silt_mean: float
     land_use: int
     land_cover: int
 
@@ -52,9 +49,9 @@ def transform_to_dataframe(requests: List[PredictionRequest]) -> DataFrame:
 
     # Initialize all expected columns with 0 or False
     expected_columns = [
-        'depth_cm', 'total_precipitation', 'min_temperature', 'mean_temperature',
-        'max_temperature', 'dem', 'slope', 'aspect', 'hillshade', 'bd_mean',
-        'clay_mean', 'om_mean', 'ph_mean', 'sand_mean', 'silt_mean',
+        'depth_cm', 'total_precipitation', 'mean_temperature',
+        'dem', 'slope', 'aspect', 'hillshade', 'bd_mean',
+        'clay_mean', 'om_mean', 'ph_mean', 'sand_mean',
         'land_use_1.0', 'land_use_2.0', 'land_use_3.0', 'land_use_4.0',
         'land_use_5.0', 'land_use_6.0', 'land_cover_1.0', 'land_cover_3.0',
         'land_cover_4.0', 'land_cover_7.0', 'land_cover_8.0', 'land_cover_9.0',
@@ -77,13 +74,10 @@ def get_prediction(request: PredictionRequest) -> PredictionResponse:
         model.load_model('xgb_model.json')
 
         # Transform request into a DataFrame
-        data_to_predict = transform_to_dataframe([request])
-
-        # Define the features to be used for prediction
-        features = data_to_predict.columns
+        data_input = transform_to_dataframe([request])
 
         # Make predictions
-        prediction = model.predict(data_to_predict[features])
+        prediction = model.predict(data_input)
         soil_organic_carbon = prediction[0]
 
         # Calculate soil organic carbon stock
@@ -108,7 +102,7 @@ app = FastAPI(
 @app.post('/v1/prediction', response_model=PredictionResponse)
 def make_model_prediction(request: PredictionRequest):
     """
-    Make a prediction of soc based on the provided input.
+    Make a prediction based on the provided input.
     """
     prediction = get_prediction(request)
     return prediction
