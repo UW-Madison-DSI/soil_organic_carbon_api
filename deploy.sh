@@ -1,1 +1,1 @@
-rsconnect deploy fastapi --server https://connect.doit.wisc.edu/ --api-key $API_KEY ./
+rsconnect deploy fastapi --server https://connect.doit.wisc.edu/ --api-key $MY_API_KEY ./
